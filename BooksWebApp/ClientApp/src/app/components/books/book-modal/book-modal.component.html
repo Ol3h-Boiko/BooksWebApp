@@ -1,0 +1,57 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{ title }}</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="row g-3" [formGroup]="bookForm">
+    <div class="col-md-6">
+      <label class="form-label">Name</label>
+      <input type="text" class="form-control" [class.is-invalid]="submitted && controls.name.errors" formControlName="name">
+      <div *ngIf="submitted && controls.name.errors" class="invalid-feedback">
+        <div *ngIf="controls.name.errors.required">Name is required</div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Publication Date</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="publicationDate"
+        [class.is-invalid]="submitted && controls.publicationDate.errors"
+        bsDatepicker
+        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+      <div *ngIf="submitted && controls.publicationDate.errors" class="invalid-feedback">
+        <div *ngIf="controls.publicationDate.errors.required">Publication Date is required</div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <label class="form-label">Description</label>
+      <textarea
+        class="form-control"
+        rows="6"
+        formControlName="description"
+        [class.is-invalid]="submitted && controls.description.errors"></textarea>
+      <div *ngIf="submitted && controls.description.errors" class="invalid-feedback">
+        <div *ngIf="controls.description.errors.required">Description is required</div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Number Of Pages</label>
+      <input
+        type="number"
+        class="form-control"
+        formControlName="numberOfPages"
+        [class.is-invalid]="submitted && controls.numberOfPages.errors"
+        min="1">
+      <div *ngIf="submitted && controls.numberOfPages.errors" class="invalid-feedback">
+        <div *ngIf="controls.numberOfPages.errors.required">Number Of Pages is required</div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Close</button>
+  <button type="submit" class="btn btn-primary" (click)="submit()">{{ submitBtnTitle }}</button>
+</div>

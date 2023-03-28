@@ -1,0 +1,15 @@
+.sort-header {
+  cursor: pointer;
+}
+
+.selected-book {
+  background-color: #d8d8d8;
+}
+
+.w-200 {
+  width: 200px;
+}
+
+.pages-th {
+  width: 90px;
+}

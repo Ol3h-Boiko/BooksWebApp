@@ -1,0 +1,34 @@
+<p *ngIf="!books"><em>Loading...</em></p>
+
+<h1>Books</h1>
+
+<div class="row align-items-center">
+  <div class="col-auto">
+    <button class="btn btn-primary my-3" (click)="openModal()">Add Book</button>
+  </div>
+
+  <div class="col-3">
+    <input
+      type="text"
+      placeholder="Select Publication Date Range"
+      class="form-control"
+      bsDaterangepicker
+      [(ngModel)]="dateRangeModel"
+      [bsConfig]="{ ranges: ranges, rangeInputFormat: 'DD-MM-YYYY', showClearButton: true, clearPosition: 'right' }">
+  </div>
+
+  <div class="col">
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        id="search-text"
+        aria-describedby="search-text"
+        [(ngModel)]="searchText"
+        placeholder="Enter text to search"
+        autofocus>
+    </div>
+  </div>
+</div>
+
+<app-books-list [books]="getFilteredBooks(books) | appFilter: searchText : searchByName" [searchedWord]="searchText" (tableChangedEvent)="getBooks()"></app-books-list>

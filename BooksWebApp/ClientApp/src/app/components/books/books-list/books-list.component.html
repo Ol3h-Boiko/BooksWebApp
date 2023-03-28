@@ -1,0 +1,47 @@
+<table class="table table-striped table-hover mt-3" aria-labelledby="tableLabel" *ngIf="books">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th class="w-200">
+        <div class="sort-header" (click)="changeSort(SortBy.Name)">
+          <span>Name </span>
+          <i *ngIf="sortBy == SortBy.Name" class="bi bi-caret-{{ isAsc ? 'down' : 'up' }}-fill"></i></div>
+      </th>
+      <th class="w-200">
+        <div class="sort-header" (click)="changeSort(SortBy.PublicationDate)">
+          <span>Publication Date </span>
+          <i *ngIf="sortBy == SortBy.PublicationDate" class="bi bi-caret-{{ isAsc ? 'down' : 'up' }}-fill"></i></div>
+      </th>
+      <th>Description</th>
+      <th class="pages-th">
+        <div class="sort-header" (click)="changeSort(SortBy.NumberOfPages)">
+          <span>Pages </span>
+          <i *ngIf="sortBy == SortBy.NumberOfPages" class="bi bi-caret-{{ isAsc ? 'down' : 'up' }}-fill"></i></div>
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let book of sort(books, sortBy)" [class.selected-book]="selectedBookId === book.id" (click)="selectBook(book.id)">
+      <td>{{ book.id }}</td>
+      <td
+        appHighlight
+        [searchedWord]="searchedWord"
+        [content]="book.name"
+        [classToApply]="'fw-bold'">
+        {{ book.name }}
+      </td>
+      <td>{{ book.publicationDate | date: 'dd-MM-yyyy' }}</td>
+      <td>{{ book.description }}</td>
+      <td>{{ book.numberOfPages }}</td>
+      <td>
+        <button type="button" class="btn btn-primary m-2" (click)="openModal(book.id)">
+          <i class="bi bi-pencil-square"></i>
+        </button>
+        <button type="button" class="btn btn-danger m-2" (click)="deleteBook(book.id)">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
